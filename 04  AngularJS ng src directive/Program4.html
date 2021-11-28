@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" ng-app="myModule">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="./script4.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        index :{{images.index}}
+    </div>
+    <div>
+        Name : {{images.name}}
+    </div>
+    <div>
+        <img ng-src="{{images.image}}" alt="{{images.name + '  image'}}" style="height: 100px; width: 100px;">
+    </div>
+</body>
+
+</html>

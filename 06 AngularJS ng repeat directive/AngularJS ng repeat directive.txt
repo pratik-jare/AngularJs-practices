@@ -1,0 +1,21 @@
+
+1> ng-repeat is similar to foreach loop in javascript. 
+
+2> Let us understand this with an example. Here is what we want to do.
+For each employee we have in the employees array we want a table row. With in each cell of the table row we to display employee
+Firstname
+Lastname
+Gender
+Salary
+
+This can be achieved very easily using ng-repeat directive.
+
+1> HtmlPage1.html : In the view, we are using ng-repeat directive which loops thru each employee in employees array. For each employee, we a get a table row, and in each table cell of the table row, the respective employee details (Firstname, Lastname, Gender, Salary) are retrieved using the angular binding expression.
+
+2> Nested ng-repeat example : The model contains an array of countries, and each country has an array of cities. The view must display cities nested under their respective country.
+
+3> Finding the index of an item in the collection : 
+To find the index of an item in the collection use $index property
+To get the index of the parent element
+ Use $parent.$index or
+ Use ng-init="parentIndex = $index"

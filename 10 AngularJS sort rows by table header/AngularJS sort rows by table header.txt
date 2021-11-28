@@ -1,0 +1,78 @@
+Here is what we want to do
+1. The data should be sorted when the table column header is clicked
+2. The user should be able to sort in both the directions - ascending and descending. Clicking on the column for the first time should sort the data in ascending order. Clicking on the same column again should sort in descending order.
+3. An icon should be displayed next to the column showing the sort column and direction
+
+Script.js : The controller function in the script does the following
+Sets up the model 
+sortColumn and reverseSort properties are attached to the $scope object. These 2 properties are used to control the column by which the data should be sorted and the sort direction.
+sortColumn is set to name and reverseSort is set to false. This will ensure that when the form is initially loaded, the table data will be sorted by name column in ascending order.
+Depending on the column header the user has clicked, sortData() function sets the sortColumn and reverseSort property values. 
+Based on the sort column and the sort direction, getSortClass() function returns the CSS class name to return. The CSS class controls the sort icon that will be displayed next to the sort column.
+
+var app = angular
+        .module("myModule", [])
+        .controller("myController", function ($scope) {
+
+            var employees = [
+                { name: "Ben", dateOfBirth: new Date("November 23, 1980"), gender: "Male", salary: 55000 },
+                { name: "Sara", dateOfBirth: new Date("May 05, 1970"), gender: "Female", salary: 68000 },
+                { name: "Mark", dateOfBirth: new Date("August 15, 1974"), gender: "Male", salary: 57000 },
+                { name: "Pam", dateOfBirth: new Date("October 27, 1979"), gender: "Female", salary: 53000 },
+                { name: "Todd", dateOfBirth: new Date("December 30, 1983"), gender: "Male", salary: 60000 }
+            ];
+
+            $scope.employees = employees;
+            $scope.sortColumn = "name";
+            $scope.reverseSort = false;
+
+            $scope.sortData = function (column) {
+                $scope.reverseSort = ($scope.sortColumn == column) ? !$scope.reverseSort : false;
+                $scope.sortColumn = column;
+            }
+
+            $scope.getSortClass = function (column) {
+
+                if ($scope.sortColumn == column) {
+                    return $scope.reverseSort
+                      ? 'arrow-down'
+                      : 'arrow-up';
+                }
+
+                return '';
+            }
+        });
+
+HtmlPage1.html : sortData() function is called when any table header is clicked, passing the name of the column by which the data should be sorted. The div element's, ng-class directive calls getSortClass() function, which returns the CSS class to be applied. The CSS displays the UP or DOWN arrow depending on the sort direction. Finally, with the orderBy filter sortColumn and reverseSort properties of the $scope object are used to control the column by which the data should be sorted and the sort direction.
+
+[body ng-app="myModule"]
+    [div ng-controller="myController"]
+        [table]
+            [thead]
+                [tr]
+                    [th ng-click="sortData('name')"]
+                        Name [div ng-class="getSortClass('name')"][/div]
+                    [/th]
+                    [th ng-click="sortData('dateOfBirth')"]
+                        Date of Birth [div ng-class="getSortClass('dateOfBirth')"][/div]
+                    [/th]
+                    [th ng-click="sortData('gender')"]
+                        Gender [div ng-class="getSortClass('gender')"][/div]
+                    [/th]
+                    [th ng-click="sortData('salary')"]
+                        Salary [div ng-class="getSortClass('salary')"][/div]
+                    [/th]
+                [/tr]
+            [/thead]
+            [tbody]
+                [tr ng-repeat="employee in employees | orderBy:sortColumn:reverseSort"]
+                    [td] {{ employee.name }} [/td]
+                    [td] {{ employee.dateOfBirth | date:"dd/MM/yyyy" }} [/td]
+                    [td] {{ employee.gender }} [/td]
+                    [td] {{ employee.salary  }} [/td]
+                [/tr]
+            [/tbody]
+        [/table]
+    [/div]
+[/body]
+[/html]

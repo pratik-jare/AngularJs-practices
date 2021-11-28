@@ -1,0 +1,94 @@
+ng-hide and ng-show directives are used to control the visibility of the HTML elements. Let us understand this with an example
+
+When Hide Salary checkbox is checked, the Salary column should be hidden, when it is unchecked the Salary column should be unhidden
+
+Script.js : The controller function builds the model
+
+var app = angular
+        .module("myModule", [])
+        .controller("myController", function ($scope) {
+
+            var employees = [
+                { name: "Ben", gender: "Male", city: "London", salary: 55000 },
+                { name: "Sara", gender: "Female", city: "Chennai", salary: 68000 },
+                { name: "Mark", gender: "Male", city: "Chicago", salary: 57000 },
+                { name: "Pam", gender: "Female", city: "London", salary: 53000 },
+                { name: "Todd", gender: "Male", city: "Chennai", salary: 60000 }
+            ];
+
+            $scope.employees = employees;
+        });
+
+HtmlPage1.html : Notice ng-model directive on the checkbox is set to hideSalary. hideSalary variable is then used as the value for ng-hide directive on the th and td elements that displays Salary. When the page is first loaded, hideSalary variable will be undefined which evaluates to false, as a result Salary column will be visible. When the checkbox is checked, hideSalary variable will be attached to the $scope object and true value is stored in it. This value is then used by the ng-hide directive to hide the salary td and it's th element. When the checkbox is unchecked, false value is stored in the hideSalary variable, which is then used by the ng-hide directive to display the Salary column.
+
+[!DOCTYPE html]
+[html xmlns="http://www.w3.org/1999/xhtml"]
+[head]
+    [title][/title]
+    [script src="Scripts/angular.min.js"][/script]
+    [script src="Scripts/Script.js"][/script]
+    [link href="Styles.css" rel="stylesheet" /]
+[/head]
+[body ng-app="myModule"]
+    [div ng-controller="myController"]
+        [input type="checkbox" ng-model="hideSalary" /]Hide Salary
+        [br /][br /]
+        [table]
+            [thead]
+                [tr]
+                    [th]Name[/th]
+                    [th]Gender[/th]
+                    [th]City[/th]
+                    [th ng-hide="hideSalary"]Salary[/th]
+                [/tr]
+            [/thead]
+            [tbody]
+                [tr ng-repeat="employee in employees"]
+                    [td] {{ employee.name }} [/td]
+                    [td] {{ employee.gender}} [/td]
+                    [td] {{ employee.city}} [/td]
+                    [td ng-hide="hideSalary"] {{ employee.salary  }} [/td]
+                [/tr]
+            [/tbody]
+        [/table]
+    [/div]
+[/body]
+[/html]
+
+The following example masks and unmasks the Salary column values using ng-hide and ng-show directives, depending on the checked status of the Hide Salary checkbox.
+
+[!DOCTYPE html]
+[html xmlns="http://www.w3.org/1999/xhtml"]
+[head]
+    [title][/title]
+    [script src="Scripts/angular.min.js"][/script]
+    [script src="Scripts/Script.js"][/script]
+    [link href="Styles.css" rel="stylesheet" /]
+[/head]
+[body ng-app="myModule"]
+    [div ng-controller="myController"]
+        [input type="checkbox" ng-model="hideSalary" /]Hide Salary
+        [br /][br /]
+        [table]
+            [thead]
+                [tr]
+                    [th]Name[/th]
+                    [th]Gender[/th]
+                    [th]City[/th]
+                    [th ng-hide="hideSalary"]Salary[/th]
+                    [th ng-show="hideSalary"]Salary[/th]
+                [/tr]
+            [/thead]
+            [tbody]
+                [tr ng-repeat="employee in employees"]
+                    [td] {{ employee.name }} [/td]
+                    [td] {{ employee.gender}} [/td]
+                    [td] {{ employee.city}} [/td]
+                    [td ng-hide="hideSalary"] {{ employee.salary  }} [/td]
+                    [td ng-show="hideSalary"] ##### [/td]
+                [/tr]
+            [/tbody]
+        [/table]
+    [/div]
+[/body]
+[/html]

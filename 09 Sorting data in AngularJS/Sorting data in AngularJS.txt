@@ -1,0 +1,103 @@
+To sort the data in Angular
+1. Use orderBy filter
+    {{ orderBy_expression | orderBy : expression : reverse}}
+    Example : ng-repeat="employee in employees | orderBy:'salary':false"
+2. To sort in ascending order, set reverse to false
+3. To sort in descending order, set reverse to true
+4. You can also use + and - to sort in ascending and descending order respectively
+     Example : ng-repeat="employee in employees | orderBy:'+salary'"
+
+Let us understand sorting data with an example.
+
+The dropdownlist shows the columns and the direction we want to sort
+When a dropdownlist item is selected, the table data should be sorted by the selected column
+
+Script.js : The controller function builds the model. Also sortColumn property is added to the $scope object. Notice sortColumn property is initialized to name. This ensures that the data is sorted by name column in ascending order, when the form first loads.
+
+var app = angular
+        .module("myModule", [])
+        .controller("myController", function ($scope) {
+
+            var employees = [
+                { name: "Ben", dateOfBirth : new Date("November 23, 1980"), gender: "Male", salary: 55000 },
+                { name: "Sara", dateOfBirth: new Date("May 05, 1970"), gender: "Female", salary: 68000 },
+                { name: "Mark", dateOfBirth: new Date("August 15, 1974"), gender: "Male", salary: 57000 },
+                { name: "Pam", dateOfBirth: new Date("October 27, 1979"), gender: "Female", salary: 53000 },
+                { name: "Todd", dateOfBirth: new Date("December 30, 1983"), gender: "Male", salary: 60000 }
+            ];
+
+            $scope.employees = employees;
+            $scope.sortColumn = "name";
+        });
+
+HtmlPage1.html : The select element, has the list of columns by which the data should be sorted. + and - symbols control the sort direction. When the form initially loads notice that the data is sorted by name column in ascending order, and name option is automatically selected in the select element. Notice the orderBy filter is using the sortColumn property that is attached to the $scope object. When the selection in the select element changes, the sortColumn property of the $scope object will be updated automatically with the selected value, and in turn the updated value is used by the orderBy filter to sort the data.
+
+[!DOCTYPE html]
+[html xmlns="http://www.w3.org/1999/xhtml"]
+[head]
+    [title][/title]
+    [script src="Scripts/angular.min.js"][/script]
+    [script src="Scripts/Script.js"][/script]
+    [link href="Styles.css" rel="stylesheet" /]
+[/head]
+[body ng-app="myModule"]
+    [div ng-controller="myController"]
+        Sort By : 
+        [select ng-model="sortColumn"]
+            [option value="name"]Name ASC[/option]
+            [option value="+dateOfBirth"]Date of Birth ASC[/option]
+            [option value="+gender"]Gender ASC[/option]
+            [option value="-salary"]Salary DESC[/option]
+        [/select]
+        [br /][br /]
+        [table]
+            [thead]
+                [tr]
+                    [th]Name[/th]
+                    [th]Date of Birth[/th]
+                    [th]Gender[/th]
+                    [th]Salary[/th]
+                [/tr]
+            [/thead]
+            [tbody]
+                [tr ng-repeat="employee in employees | orderBy:sortColumn"]
+                    [td]
+                        {{ employee.name }}
+                    [/td]
+                    [td]
+                        {{ employee.dateOfBirth | date:"dd/MM/yyyy" }}
+                    [/td]
+                    [td]
+                        {{ employee.gender }}
+                    [/td]
+                    [td]
+                        {{ employee.salary  }}
+                    [/td]
+                [/tr]
+            [/tbody]
+        [/table]
+    [/div]
+[/body]
+[/html]
+
+Styles.css : CSS styles to make the form look pretty.
+
+body {
+    font-family: Arial;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+}
+

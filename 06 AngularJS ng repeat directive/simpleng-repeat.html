@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" ng-app="myModule">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="./simpleng-repeat.js"></script>
+</head>
+
+<body ng-controller="myController">
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        First Name
+                    </td>
+
+                    <td>
+                        Last Name
+                    </td>
+
+                    <td>
+                        Salary
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="e in emp">
+                    <td> {{e.firstname}} </td>
+                    <td> {{e.lastname}} </td>
+                    <td> {{e.salary}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

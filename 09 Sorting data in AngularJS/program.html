@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" ng-app="myModule">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="./script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body ng-controller="myController">
+    <div>
+        Order By :=>
+        <select name="" ng-model="sortColumn" id="">
+            <option value="name">Name Asc</option>
+            <option value="gender">Gender Asc</option>
+            <option value="dateOfBirth"> Date OF Birth Asc</option>
+            <option value="-salary">Salary Desc</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Date OF Birth
+                    </th>
+                    <th>
+                        Gender
+                    </th>
+                    <th>
+                        Salary (number)
+                    </th>
+                    <th>
+                        Salary (currency)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="emp in employees | orderBy : sortColumn">
+                    <!-- false + , ture -  -->
+                    <td> {{emp.name | uppercase}} </td>
+                    <td> {{emp.dateOfBirth | date:"dd/MM/yyyy"}} </td>
+                    <td>
+                        {{emp.gender | lowercase}}
+                    </td>
+                    <td>
+                        {{emp.salary | number : 2}}
+                    </td>
+                    <td>
+                        {{emp.salary | currency :"$" :1}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

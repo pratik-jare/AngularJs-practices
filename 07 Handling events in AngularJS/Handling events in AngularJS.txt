@@ -1,0 +1,84 @@
+ Let us understand with an example. Here is what we want to do.
+
+1. Display the list of technologies in a table
+2. Provide the ability to ike and dislike a technology
+3. Increment the likes and dislikes when the respective buttons are clicked
+
+Script.js : In the controller function we have 2 methods to increment likes and dislikes. Both the functions have the technology object that we want to like or dislike as a parameter. 
+
+var app = angular
+            .module("myModule", [])
+            .controller("myController", function ($scope) {
+
+                var technologies = [
+                    { name:"C#", likes:0, dislikes:0 },
+                    { name: "ASP.NET", likes: 0, dislikes: 0 },
+                    { name: "SQL", likes: 0, dislikes: 0 },
+                    { name: "AngularJS", likes: 0, dislikes: 0 }
+                ];
+
+                $scope.technologies = technologies;
+
+                $scope.incrementLikes = function (technology) {
+                    technology.likes++;
+                };
+
+                $scope.incrementDislikes = function (technology) {
+                    technology.dislikes++;
+                };
+            });
+
+HtmlPage1.html : Notice in the html below, we are associating incrementLikes() and incrementDislikes() functions with the respective button. When any of these buttons are clicked, the corresponsing technology object is automatically passed to the function, and the likes or dislikes property is incremented depending on which button is clicked.
+
+[!DOCTYPE html]
+[html xmlns="http://www.w3.org/1999/xhtml"]
+[head]
+    [title][/title]
+    [script src="Scripts/angular.min.js"][/script]
+    [script src="Scripts/Script.js"][/script]
+    [link href="Styles.css" rel="stylesheet" /]
+[/head]
+[body ng-app="myModule"]
+    [div ng-controller="myController"]
+        [table]
+            [thead]
+                [tr]
+                    [th]Name[/th]
+                    [th]Likes[/th]
+                    [th]Dislikes[/th]
+                    [th]Like/Dislike[/th]
+                [/tr]
+            [/thead]
+            [tbody]
+                [tr ng-repeat="technology in technologies"]
+                    [td] {{ technology.name }} [/td]
+                    [td style="text-align:center"] {{ technology.likes }} [/td]
+                    [td style="text-align:center"] {{ technology.dislikes }} [/td]
+                    [td]
+                        [input type="button" ng-click="incrementLikes(technology)" value="Like" /]
+                        [input type="button" ng-click="incrementDislikes(technology)" value="Dislike" /]
+                    [/td]
+                [/tr]
+            [/tbody]
+        [/table]
+    [/div]
+[/body]
+[/html]
+
+Styles.css : Styles for table, td and th elements
+
+table {
+    border-collapse: collapse;
+    font-family:Arial;
+}
+
+td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+}

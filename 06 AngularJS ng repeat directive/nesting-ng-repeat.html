@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" ng-app="myModule">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="./nesting-ng-repeat.js"></script>
+</head>
+
+<body ng-controller="myController">
+
+    <div>
+        <ul>
+            <li ng-repeat="place in nameplaces" ng-init="parentIndex = $index">
+                {{parentIndex}} {{place.name}}
+                <ul>
+                    <li ng-repeat="p in place.places">
+                        {{p.name}} Parent index =  {{parentIndex}} {{ $parent.$index }} Index = {{$index}}
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

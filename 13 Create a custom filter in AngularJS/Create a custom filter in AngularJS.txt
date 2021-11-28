@@ -1,0 +1,107 @@
+Custom filter in AngularJS
+Is a function that returns a function
+Use the filter function to create a custom filter
+
+Let us understand creating custom filter with an example.
+
+Script.js : In the example below we are using the filter function to create a custom filter that converts integer values 1, 2, 3 to Male, Female and Not disclosed respectively. gender is the name of the filter. With in the filter function we have an anonymous function that returns another anonymous function. The input parameter for the inner anonynous function is the gender integer value. The switch statement in the function returns the corresponding string value.
+
+var app = angular
+        .module("myModule", [])
+        .filter("gender", function () {
+            return function (gender) {
+                switch (gender) {
+                    case 1:
+                        return "Male";
+                    case 2:
+                        return "Female";
+                    case 3:
+                        return "Not disclosed";
+                }
+            }
+        })
+        .controller("myController", function ($scope) {
+
+            var employees = [
+                { name: "Ben", gender: 1, salary: 55000 },
+                { name: "Sara", gender: 2, salary: 68000 },
+                { name: "Mark", gender: 1, salary: 57000 },
+                { name: "Pam", gender: 2, salary: 53000 },
+                { name: "Todd", gender: 3, salary: 60000 }
+            ];
+
+            $scope.employees = employees;
+        });
+
+HtmlPage1.html : In the view, we use the custom gender filter like any other angular built-in filter with a pipe character.
+
+[!DOCTYPE html]
+[html xmlns="http://www.w3.org/1999/xhtml"]
+[head]
+    [title][/title]
+    [script src="Scripts/angular.min.js"][/script]
+    [script src="Scripts/Script.js"][/script]
+    [link href="Styles.css" rel="stylesheet" /]
+[/head]
+[body ng-app="myModule"]
+    [div ng-controller="myController"]
+        [table]
+            [thead]
+                [tr]
+                    [th]Name[/th]
+                    [th]Gender[/th]
+                    [th]Salary[/th]
+                [/tr]
+            [/thead]
+            [tbody]
+                [tr ng-repeat="employee in employees"]
+                    [td] {{ employee.name }} [/td]
+                    [td] {{ employee.gender | gender}} [/td]
+                    [td] {{ employee.salary  }} [/td]
+                [/tr]
+            [/tbody]
+        [/table]
+    [/div]
+[/body]
+[/html]
+
+In the above example we have the custom filter in Script.js file. In a real world application you may the custom filters in a separate script file (Filters.js for example). To do this reference the module object and use the filter function.
+
+Filter.js : The custom filter is moved to a separate file
+
+/// [reference path="Script.js" /]
+
+app.filter("gender", function () {
+    return function (gender) {
+        switch (gender) {
+            case 1:
+                return "Male";
+            case 2:
+                return "Female";
+            case 3:
+                return "Not disclosed";
+        }
+    }
+});
+
+Script.js : After moving the filter function to a separate Filters.js file, the Script.js file will now look as shown below.
+
+/// [reference path="angular.min.js" /]
+
+var app = angular
+        .module("myModule", [])
+        .controller("myController", function ($scope) {
+
+            var employees = [
+                { name: "Ben", gender: 1, salary: 55000 },
+                { name: "Sara", gender: 2, salary: 68000 },
+                { name: "Mark", gender: 1, salary: 57000 },
+                { name: "Pam", gender: 2, salary: 53000 },
+                { name: "Todd", gender: 3, salary: 60000 }
+            ];
+
+            $scope.employees = employees;
+        });
+
+HtmlPage1.html : The only change required in the view is to reference the Filters.js file
+[script src="Scripts/Filters.js"][/script]

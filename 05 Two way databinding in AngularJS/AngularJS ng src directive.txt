@@ -1,0 +1,25 @@
+
+
+1> One of the most useful feature in AngularJS is the Two Way Data-Binding.
+
+2> The Two Way Data-Binding, keeps the model and the view in sync at all times, 
+ that is a change in the model updates the view and a change in the view updates the model. 
+
+3> When the model changes the view is automatically updated. This is achieved using the data binding expression in the view.
+
+4> How about the other way round. How to keep the model up to date when the view changes. That's exactly is the purpose of ng-model directive.
+
+5> In the html below, notice the input element is decorated with ng-model directive. This ensures that whenever the value in the textbox is changed,
+ angular will automatically update the message property of the $scope object.
+  This means the ng-model directive automatically takes the form values and updates the model.
+  The binding expression does the opposite, i.e whenever the model changes the view is automatically updated. 
+
+6> Because of the two way data binding provided by angular, as you type in the textbox, 
+the value is immediately displayed on the view just below the textbox. This two way binding feature provided by angular,
+ eliminates the need to write any custom code to move data from the model to the view or from the view to the model. 
+
+7> ng-model directive can be used with the following 3 html elements
+input 
+select
+textarea
+ 

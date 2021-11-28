@@ -1,0 +1,67 @@
+ 
+ 
+ 1> How to create module, controller and register the controller with the module, all in one line
+--->
+The job of the controller is to build a model for the view.The controller does this by attaching the model to the scope.The scope is not the model, it's the data that you attach to the scope is the model. 
+
+In the following example, $scope is not the model. The message property that we have attached to the scope is the model.
+
+myApp.controller("myController", function ($scope) {
+    $scope.message = "AngularJS Tutorial";
+});
+
+The view will then use the data-binding expression to retrieve the model from the scope. This means the controller is not manipulating the DOM directly, thus keeping that clean separation between the model, view and the controller. So when you are developing controllers, make sure, you are not breaking that clean separation between the model, view and the controllers. The controller should only be used for setting up the $scope object and adding behavior it. We will discuss, when and why should we add behvior to the scope object in a later video. 
+
+In the example above, message is a simple property. You can also attach a complex object to the scope. In the example below, we have an employee object which is a complex object with 3 properties attached to the view.
+
+myApp.controller("myController", function ($scope) {
+
+    var employee = {
+        firstName: 'Mark',
+        lastName: 'Hastings',
+        gender: 'Male'
+    };
+
+    $scope.employee = employee;
+});
+
+With in the view, we can then retrieve the employee properties and display them in the view as shown below
+[div ng-controller="myController"]
+    [div]First Name : {{ employee.firstName }}[/div]
+    [div]Last Name : {{ employee.lastName }}[/div]
+    [div]Gender : {{ employee.gender}}[/div]
+[/div]
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2> What happens if the controller name is misspelled ?
+When the controller name is misspelled, 2 things happen
+1. An error is raised. To see the error, use browser developer tools
+2. The binding expressions in the view that are in the scope of the controller will not be evaluated
+
+If you are using the minified version of the AngularJS script, the error messages may not be readable. To get readable error message
+1. In the developer tools, click on the link next to the error. This will lead you to a page, where you can see a much clean error message without all the encoding symbols.
+
+2. Another option you have is, if you are in the development environment, you may use the non-minified version of the AngularJS script, which produces readable error message.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3> What happens if a property name in the binding expression is misspelled ?
+Expression evaluation in angular is forgiving, meaning if you misspell a property name in the binding expression, angular will not report any error. It will simply return null or undefined.
+
+How to create module, controller and register the controller with the module, all in one line
+Use the method chaining mechanism as shown below
+
+var myApp = angular
+    .module("myModule", [])
+    .controller("myController", function ($scope) {
+        var employee = {
+            firstName: 'Mark',
+            lastName: 'Hastings',
+            gender: 'Male'
+        };
+        $scope.employee = employee;
+    });
+    
+    
+    

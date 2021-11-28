@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" ng-app>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body>
+    <div>
+        10 + 20 = {{10+20}}
+    </div>
+    <div>
+        {{1 == 1}}
+    </div>
+    <div>
+        {{ {name:'pratik' , age : '25'}.name }}
+    </div>
+    <div>
+        {{ ['pratik','amit','ganesh'][0]  }}
+    </div>
+</body>
+
+</html>
+
+<!-- ng-app is derective it will consider that tag to be angulars project part 
+if we declare it in html tag it will consider all the childs of html to be a part of angular.
+if we declare it in body tag then it will consider only body child to be  a part of angular.
+if we delcare it in one div theb the code inside that div will considered as part of angular. -->
+
+<!-- 
+<!doctype html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app>
+        10 + 20 = {{10+20}}
+    </div>
+    <div>
+        30+40 = {{30+40}}
+    </div>
+
+
+</body>
+
+</html> -->
+
+
+<!-- <!doctype html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app>
+    <div>
+        10 + 20 = {{10+20}}
+    </div>
+    <div>
+        30+40 = {{30+40}}
+    </div>
+
+
+</body>
+
+</html> -->

@@ -1,0 +1,50 @@
+ 
+ 
+1> Let us understand this with an example : We want to display the name of the country, capital and it's flag.
+
+AngularJS Code : The controller builds the country model. The flag property of the country object has the path of the image.
+
+var myApp = angular
+                .module("myModule", [])
+                .controller("myController", function ($scope) {
+                    var country = {
+                        name: "United States of America",
+                        capital: "Washington, D.C.",
+                        flag: "/Images/usa-flag.png"
+                    };
+                    $scope.country = country;
+                });
+
+HTML Code : In the view we are binding country.flag property with the src attribute of the image element.
+
+[!doctype html]
+[html ng-app="myModule"]
+[head]
+    [script src="Scripts/angular.js"][/script]
+    [script src="Scripts/Script.js"][/script]
+[/head]
+[body]
+    [div ng-controller="myController"]
+        [div]
+            Country : {{ country.name }}
+        [/div]
+        [div]
+            Capital : {{ country.capital }}
+        [/div]
+        [div]
+            [img src="{{country.flag}}"
+                 alt="{{ country.name + ' Flag' }}"
+                 style="height:100px; width:200px" /]
+        [/div]
+    [/div]
+[/body]
+[/html]
+
+
+When you view the page in the browser, the country details and the flag are displayed as expected. The problem with the img src attribute is that we get a 404 error. To see the error, launch the developer tools.
+
+Let's now understand the reason for the 404 error
+As soon as the DOM is parsed, an attempt is made is to fetch the image from the server. At this point, AngularJS binding expression that is specified with the src attribute is not evaluated. Hence 404 (not found) error.
+
+To fix the 404 error use the ng-src directive : ng-src attribute ensures that a request is issued only after AngularJS has evaluated the binding expression
+
